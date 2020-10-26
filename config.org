@@ -10,7 +10,7 @@
 * Visuals
 ** Theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-horizon)
 #+end_src
 ** Font
 #+begin_src emacs-lisp
@@ -20,6 +20,12 @@
 ** Line Numbers
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)
+#+end_src
+** Screen
+#+begin_src emacs-lisp
+(if (eq initial-window-system 'x) ;if started by emacs command or desktop
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
 #+end_src
 * Programming
 ** Org-Mode

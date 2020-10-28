@@ -3,38 +3,80 @@
 #+PROPERTY: header-args :tangle yes
 
 * User
+Always good to have some kind of information about the user.
 #+begin_src emacs-lisp
 (setq user-full-name "Lourenço Bogo"
       user-mail-address "louhmmsb@hotmail.com")
 #+end_src
 * Visuals
 ** Theme
+Setting the theme up, to see which themes are available you can 'SPC h t'
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-horizon)
+(setq doom-theme 'doom-one)
 #+end_src
 ** Font
+There are 5 variables that are related to foonts in Doom Emacs:
+- 'doom-font' -- standard monospace font used for most things
+- 'doom-variable-pitch-font' -- used for some plugins, it's the not monospaced font (in theory)
+- 'doom-big-font' -- used in big font mode, good for presentations
+- 'fontlock-comment-face' -- used for comments
+- 'font-lock-keyword-face' -- used for keywords with special significance, such as 'for' and 'if' in C mode
+
 #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
+(setq doom-font (font-spec :family "Hack" :size 15 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Hack" :size 15)
+      doom-big-font (font-spec :family "Hack" :size 24 :weight 'semi-light))
+(after! doom-themes
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t))
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
 #+end_src
 ** Line Numbers
+Relative numbers are always nice, you can jump to where you want perfectly
 #+begin_src emacs-lisp
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 #+end_src
 ** Screen
+Making emacs go fullscreen when opened
 #+begin_src emacs-lisp
 (if (eq initial-window-system 'x) ;if started by emacs command or desktop
     (toggle-frame-maximized)
   (toggle-frame-fullscreen))
 #+end_src
-* Programming
+* Languages (Including Org)
 ** Org-Mode
-Bullet Mode
+Adding a org-bullets-mode to org-mode hook
 #+begin_src emacs-lisp
 (use-package! org-bullets
   :hook (org-mode . org-bullets-mode))
 #+end_src
 Org directory
 #+begin_src emacs-lisp
-(setq org-directory "~/org")
+(setq org-directory "~/org"
+      org-hide-emphasis-markers t)
+#+end_src
+* Variables
+- 'require-final-newline' puts a newline at the end of every file, which is annoying in snippets
+
+#+begin_src emacs-lisp
+(setq require-final-newline nil)
+#+end_src
+
+* Minted
+Setting up minted to export syntax highlighted code from org to latex
+- 'org-latex-packages-alist' describes which packages should be imported in the latex document
+- Setting 'org-latex-listings' to minted, is making every listing use minted when the code gets exported
+- The option '-shell-escape' is needed to make the minted work when the tex gets compiled to pdf
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-latex-packages-alist '(("" "minted")))
+  (setq org-latex-listings 'minted)
+  (setq org-latex-pdf-process
+        '("pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+          "bibtex %b"
+          "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+          "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f")))
 #+end_src

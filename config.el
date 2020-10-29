@@ -21,9 +21,10 @@
 
 (use-package! org-bullets
   :hook (org-mode . org-bullets-mode))
-
-(setq org-directory "~/org"
-      org-hide-emphasis-markers t)
+(after! org
+  (setq org-directory "~/org"
+        org-hide-emphasis-markers t
+        org-log-done 'time))
 
 (setq require-final-newline nil)
 

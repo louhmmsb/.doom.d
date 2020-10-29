@@ -47,15 +47,17 @@ Making emacs go fullscreen when opened
 #+end_src
 * Languages (Including Org)
 ** Org-Mode
-Adding a org-bullets-mode to org-mode hook
++ Adding a org-bullets-mode to org-mode hook
++ Setting org directory
++ Making org-mode not show the markers of markdown text
++ Making org-mode set a timestamp to when some task was done
 #+begin_src emacs-lisp
 (use-package! org-bullets
   :hook (org-mode . org-bullets-mode))
-#+end_src
-Org directory
-#+begin_src emacs-lisp
-(setq org-directory "~/org"
-      org-hide-emphasis-markers t)
+(after! org
+  (setq org-directory "~/org"
+        org-hide-emphasis-markers t
+        org-log-done 'time))
 #+end_src
 * Variables
 - 'require-final-newline' puts a newline at the end of every file, which is annoying in snippets

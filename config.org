@@ -12,7 +12,7 @@ Always good to have some kind of information about the user.
 ** Theme
 Setting the theme up, to see which themes are available you can 'SPC h t'
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-monokai-classic)
 #+end_src
 ** Font
 There are 5 variables that are related to foonts in Doom Emacs:
@@ -79,4 +79,12 @@ Setting up minted to export syntax highlighted code from org to latex
           "bibtex %b"
           "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
           "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f")))
+#+end_src
+
+* Stop Making Auto-saves and Backups
+The variables names here are self explanatory
+#+begin_src emacs-lisp
+(setq auto-save-default nil
+      create-lockfiles nil
+      make-backup-files nil)
 #+end_src

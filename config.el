@@ -1,7 +1,7 @@
 (setq user-full-name "Lourenço Bogo"
       user-mail-address "louhmmsb@hotmail.com")
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-monokai-classic)
 
 (setq doom-font (font-spec :family "Hack" :size 15 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "Hack" :size 15)
@@ -35,3 +35,7 @@
           "bibtex %b"
           "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
           "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f")))
+
+(setq auto-save-default nil
+      create-lockfiles nil
+      make-backup-files nil)

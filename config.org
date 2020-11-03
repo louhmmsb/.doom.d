@@ -59,9 +59,14 @@ Making emacs go fullscreen when opened
         org-hide-emphasis-markers t
         org-log-done 'time))
 #+end_src
+** LaTeX-Mode
+- setting the default pdf viewer for latex to evince
+- TeX-command-run-all is a function that compiles a TeX files and opens the .pdf after
+  #+begin_src emacs-lisp
+(setq +latex-viewers '(evince))
+  #+end_src
 * Variables
 - 'require-final-newline' puts a newline at the end of every file, which is annoying in snippets
-
 #+begin_src emacs-lisp
 (setq require-final-newline nil)
 #+end_src
@@ -90,3 +95,11 @@ The variables names here are self explanatory
       create-lockfiles nil
       make-backup-files nil)
 #+end_src
+* Keybindings
+- TeX-command-run-all is a function that compiles a TeX file and opens the .pdf after
+  #+begin_src emacs-lisp
+(map!  :localleader
+       (:map LaTeX-mode-map
+        (:prefix ("c" . "code")
+         :desc "Compile and show PDF" "c" #'TeX-command-run-all)))
+  #+end_src

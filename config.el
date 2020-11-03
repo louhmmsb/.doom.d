@@ -26,6 +26,8 @@
         org-hide-emphasis-markers t
         org-log-done 'time))
 
+(setq +latex-viewers '(evince))
+
 (setq require-final-newline nil)
 
 (after! org
@@ -40,3 +42,8 @@
 (setq auto-save-default nil
       create-lockfiles nil
       make-backup-files nil)
+
+(map!  :localleader
+       (:map LaTeX-mode-map
+        (:prefix ("c" . "code")
+         :desc "Compile and show PDF" "c" #'TeX-command-run-all)))

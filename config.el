@@ -4,7 +4,7 @@
 (setq doom-theme 'doom-monokai-classic)
 
 (setq doom-font (font-spec :family "Hack" :size 15 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Hack" :size 15)
+      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
       doom-big-font (font-spec :family "Hack" :size 24 :weight 'semi-light))
 (after! doom-themes
   (setq doom-themes-enable-bold t)
@@ -46,4 +46,7 @@
 (map!  :localleader
        (:map LaTeX-mode-map
         (:prefix ("c" . "code")
-         :desc "Compile and show PDF" "c" #'TeX-command-run-all)))
+         :desc "Compile and show PDF" "c" #'TeX-command-run-all)
+        (:prefix ("i" . "insert")
+         :desc "Insert LaTeX environment" "e" #'LaTeX-environment
+         :desc "Insert LaTeX item" "i" #'LaTeX-insert-item)))

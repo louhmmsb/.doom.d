@@ -61,7 +61,6 @@ Making emacs go fullscreen when opened
 #+end_src
 ** LaTeX-Mode
 - setting the default pdf viewer for latex to evince
-- TeX-command-run-all is a function that compiles a TeX files and opens the .pdf after
   #+begin_src emacs-lisp
 (setq +latex-viewers '(evince))
   #+end_src
@@ -98,11 +97,15 @@ The variables names here are self explanatory
 * Keybindings
 - TeX-command-run-all is a function that compiles a TeX file and opens the .pdf after
   #+begin_src emacs-lisp
-(map!  :localleader
-       (:map LaTeX-mode-map
+(map! (:leader
+       (:map projectile-mode-map
+        (:prefix ("p")
+         :desc "Purge file from project" "P" #'projectile-purge-file-from-cache)))
+      (:localleader
+       (:map (latex-mode-map LaTeX-mode-map)
         (:prefix ("c" . "code")
          :desc "Compile and show PDF" "c" #'TeX-command-run-all)
         (:prefix ("i" . "insert")
          :desc "Insert LaTeX environment" "e" #'LaTeX-environment
-         :desc "Insert LaTeX item" "i" #'LaTeX-insert-item)))
+         :desc "Insert LaTeX item" "i" #'LaTeX-insert-item))))
   #+end_src

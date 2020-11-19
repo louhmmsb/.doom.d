@@ -74,7 +74,8 @@ Making emacs go fullscreen when opened
 * Variables
 - 'require-final-newline' puts a newline at the end of every file, which is annoying in snippets
 #+begin_src emacs-lisp
-(setq require-final-newline nil)
+(setq mode-require-final-newline nil
+      require-final-newline nil)
 #+end_src
 
 * Minted

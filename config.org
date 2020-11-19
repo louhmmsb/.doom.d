@@ -107,7 +107,10 @@ The variables names here are self explanatory
 (map! (:leader
        (:map projectile-mode-map
         (:prefix ("p")
-         :desc "Purge file from project" "P" #'projectile-purge-file-from-cache)))
+         :desc "Purge file from project" "P" #'projectile-purge-file-from-cache)
+        (:prefix ("g")
+         :desc "Magit push" "p" #'magit-push
+         :desc "Magit stage all files" "a" #'magit-stage-modified)))
       (:localleader
        (:map (latex-mode-map LaTeX-mode-map)
         (:prefix ("c" . "code")

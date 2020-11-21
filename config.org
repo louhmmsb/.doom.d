@@ -46,6 +46,26 @@ Making emacs go fullscreen when opened
   (toggle-frame-fullscreen))
 
 #+end_src
+** Banner
+- Functions to change the emacs banner to a random ascii art.
+- The art will be chosen from '~/.doom.d/extra/emacsText'
+#+begin_src emacs-lisp
+(defun +banner/emacsSplash ()
+  (split-string (with-output-to-string
+                  (call-process "~/.doom.d/extra/emacsSplashAux" nil standard-output nil))
+                "\n" t))
+
+(defun +banner/doom-banner ()
+  (let ((point (point)))
+    (mapc (lambda (line)
+            (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
+                                'face 'doom-dashboard-banner) " ")
+            (insert "\n"))
+          (+banner/emacsSplash))
+    (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0) ?\n))))
+
+(setcar (nthcdr 0 +doom-dashboard-functions) #'+banner/doom-banner)
+#+end_src
 * Languages (Including Org)
 ** Org-Mode
 - Adding a org-bullets-mode to org-mode hook

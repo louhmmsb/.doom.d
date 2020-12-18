@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-files=(/home/louhmmsb/.doom.d/extra/emacsText/*)
+files=($HOME/.doom.d/extra/emacsText/*)
 
 cat ${files[$RANDOM % ${#files[@]}]}

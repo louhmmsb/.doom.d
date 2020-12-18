@@ -12,7 +12,7 @@ Always good to have some kind of information about the user.
 ** Theme
 Setting the theme up, to see which themes are available you can 'SPC h t'
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-horizon)
 #+end_src
 ** Font
 There are 5 variables that are related to foonts in Doom Emacs:
@@ -83,13 +83,18 @@ Making emacs go fullscreen when opened
 ** LaTeX-Mode
 - setting the default pdf viewer for latex to evince
   #+begin_src emacs-lisp
-(setq +latex-viewers '(evince))
+(setq +latex-viewers '(zathura))
   #+end_src
 ** Racket-Mode
 - The function 'racket-smart-open-bracket-mode' makes putting brackets in racket mode really hard, so I like it disabled
 #+begin_src emacs-lisp
 (after! racket-mode
   (remove-hook! 'racket-mode-hook #'(racket-smart-open-bracket-mode)))
+#+end_src
+* Minor Modes
+- Enabling word wrap almost everywhere (more info [[https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/word-wrap/README.org][here]])
+#+begin_src emacs-lisp
+(+global-word-wrap-mode +1)
 #+end_src
 * Variables
 - 'require-final-newline' puts a newline at the end of every file, which is annoying in snippets
@@ -131,7 +136,11 @@ The variables names here are self explanatory
          :desc "Purge file from project" "P" #'projectile-purge-file-from-cache)
         (:prefix ("g")
          :desc "Magit push" "p" #'magit-push
-         :desc "Magit stage all files" "a" #'magit-stage-modified)))
+         :desc "Magit stage all files" "a" #'magit-stage-modified)
+        (:prefix ("W" . "wrap")
+         :desc "()" "(" #'sp-wrap-round
+         :desc "{}" "{" #'sp-wrap-curly
+         :desc "[]" "[" #'sp-wrap-square)))
       (:localleader
        (:map (latex-mode-map LaTeX-mode-map)
         (:prefix ("c" . "code")
@@ -140,3 +149,6 @@ The variables names here are self explanatory
          :desc "Insert LaTeX environment" "e" #'LaTeX-environment
          :desc "Insert LaTeX item" "i" #'LaTeX-insert-item))))
   #+end_src
+* Next packages to configure
+- Treemacs: [[https://github.com/Alexander-Miller/treemacs][here]]
+- Smartparens: [[https://github.com/Fuco1/smartparens#usage][here]]

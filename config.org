@@ -12,7 +12,7 @@ Always good to have some kind of information about the user.
 ** Theme
 Setting the theme up, to see which themes are available you can 'SPC h t'
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-horizon)
+(setq doom-theme 'doom-one)
 #+end_src
 ** Font
 There are 5 variables that are related to foonts in Doom Emacs:
@@ -40,7 +40,7 @@ Relative numbers are always nice, you can jump to where you want perfectly
 #+end_src
 ** Screen
 Making emacs go fullscreen when opened
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (if (eq initial-window-system 'x) ;if started by emacs command or desktop
     (progn (toggle-frame-maximized) (toggle-frame-fullscreen))
   (toggle-frame-fullscreen))
@@ -65,6 +65,11 @@ Making emacs go fullscreen when opened
     (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0) ?\n))))
 
 (setcar (nthcdr 0 +doom-dashboard-functions) #'+banner/doom-banner)
+#+end_src
+** Transparency
+#+begin_src emacs-lisp
+(set-frame-parameter (selected-frame) 'alpha '(90 . 50))
+(add-to-list 'default-frame-alist '(alpha . (90 . 50)))
 #+end_src
 * Languages (Including Org)
 ** Org-Mode

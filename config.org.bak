@@ -16,7 +16,7 @@ Setting the theme up, to see which themes are available you can 'SPC h t'
 (setq GruvBoxDark 'doom-gruvbox)
 (setq HorizonDark 'doom-horizon)
 (setq OneDark 'doom-one)
-(setq doom-theme OneDark)
+(setq doom-theme HorizonDark)
 #+end_src
 ** Font
 There are 5 variables that are related to foonts in Doom Emacs:

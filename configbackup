@@ -12,8 +12,6 @@ Always good to have some kind of information about the user.
 ** Theme
 Setting the theme up, to see which themes are available you can 'SPC h t'
 #+begin_src emacs-lisp
-(setq Monokai 'doom-monokai-classic)
-(setq GruvBoxDark 'doom-gruvbox)
 (setq HorizonDark 'doom-horizon)
 (setq OneDark 'doom-one)
 (setq doom-theme OneDark)

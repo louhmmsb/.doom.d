@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: Typescript React Functional Component
+# key: fcts
+# condition: t
+# contributor: Lourenço Henrique Moinheiro Martins Sborz Bogo
+# --
+import React from 'react';
+
+interface ${1:`(file-name-base buffer-file-name)`}PropTypes {
+
+}
+
+const $1 = (props: $1PropTypes) => {
+  return (
+    $0
+  );
+};
+
+export { $1 };

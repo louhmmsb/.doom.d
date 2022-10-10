@@ -129,4 +129,7 @@ This makes emacs go fullscreen when opened.
 (map! (:leader
        (:prefix "b"
         :desc "Switch buffer" "b" #'counsel-switch-buffer)))
+
+(map! :nv "j" #'evil-next-visual-line
+      :nv "k" #'evil-previous-visual-line)
 #+end_src

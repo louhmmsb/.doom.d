@@ -56,6 +56,20 @@ This makes emacs go fullscreen when opened.
     (progn (toggle-frame-maximized) (toggle-frame-fullscreen))
   (toggle-frame-fullscreen))
 #+end_src
+
+This is a /temporary/ fix to emacs not going fullscreen on Windows when using WSL. The values of the resolution are hardcoded and should be changed if the resolution of the monitor changes. The left position is set to 1366, because that's the resolution of my left monitor, and I use Emacs on the right monitor.
+#+begin_src emacs-lisp
+(defun emacs-windows-fullscreen-mode-2560x1080 ()
+  "Make Emacs go fullscreen when using wsl2 inside windows.
+INTERACTIVE"
+  (interactive)
+  (set-frame-parameter (selected-frame) 'left 1366)
+  (set-frame-parameter (selected-frame) 'top 0)
+  (set-frame-parameter (selected-frame) 'undecorated t)
+  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+  (set-frame-size (selected-frame) 2544 1080 t)
+  )
+#+end_src
 ** Doom Splash Banner
 - Auxiliary functions to change the emacs banner to a random ascii art.
 - The ascii art will be chosen from '~/.doom.d/extra/emacsText' directory.
@@ -104,32 +118,67 @@ This makes emacs go fullscreen when opened.
   :init
   (setq org-roam-directory "~/Notes"))
 #+end_src
-* Bindings
+* Org Agenda
+Configuration for org agenda, strongly /inspired/ by the one made [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][here]].
 #+begin_src emacs-lisp
-(map! "C-s" #'swiper
-      :map ivy-minibuffer-map
-      "TAB" #'ivy-alt-done
-      "C-l" #'ivy-alt-done
-      "C-j" #'ivy-next-line
-      "C-k" #'ivy-previous-line
-      :map ivy-switch-buffer-map
-      "C-k" #'ivy-previous-line
-      "C-l" #'ivy-done
-      "C-d" #'ivy-switch-buffer-kill
-      :map ivy-reverse-i-search-map
-      "C-k" #'ivy-previous-line
-      "C-d" #'ivy-reverse-i-search-kill)
+(setq org-agenda-files '("~/org/inbox.org"
+                         "~/org/gtd.org"
+                         "~/org/tickler.org"))
 
-(map! ("M-x"     #'counsel-M-x)
-      ("C-x b"   #'counsel-ibuffer)
-      ("C-x C-f" #'counsel-find-file)
-      :map minibuffer-local-map
-      ("C-r"     #'counsel-minibuffer-history))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "REVIEW(r)" "|" "DONE(d)" "CANCELLED(c)")))
 
-(map! (:leader
-       (:prefix "b"
-        :desc "Switch buffer" "b" #'counsel-switch-buffer)))
+(setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline "~/org/inbox.org" "Tasks")
+                               "* TODO %i%?")
+                              ("T" "Tickler" entry
+                               (file+headline "~/org/tickler.org" "Tickler")
+                               "* %i%? \n %t")))
 
+(setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
+                           ("~/org/someday.org" :level . 1)
+                           ("~/org/tickler.org" :maxlevel . 2)))
+
+(setq org-log-done 'time)
+#+end_src
+* Bindings
+** Generic Bindings
+#+begin_src emacs-lisp
 (map! :nv "j" #'evil-next-visual-line
-      :nv "k" #'evil-previous-visual-line)
+      :nv "k" #'evil-previous-visual-line
+      :map ibuffer-mode-map
+      :nvi "q" #'kill-current-buffer)
+#+end_src
+
+** Ivy
+#+begin_src emacs-lisp
+;; (map! "C-s" #'swiper
+;;       :map ivy-minibuffer-map
+;;       "TAB" #'ivy-alt-done
+;;       "C-l" #'ivy-alt-done
+;;       "C-j" #'ivy-next-line
+;;       "C-k" #'ivy-previous-line
+;;       :map ivy-switch-buffer-map
+;;       "C-k" #'ivy-previous-line
+;;       "C-l" #'ivy-done
+;;       "C-d" #'ivy-switch-buffer-kill
+;;       :map ivy-reverse-i-search-map
+;;       "C-k" #'ivy-previous-line
+;;       "C-d" #'ivy-reverse-i-search-kill)
+
+;; (map! ("M-x"     #'counsel-M-x)
+;;       ("C-x b"   #'counsel-ibuffer)
+;;       ("C-x C-f" #'counsel-find-file)
+;;       :map minibuffer-local-map
+;;       ("C-r"     #'counsel-minibuffer-history))
+
+;; (map! (:leader
+;;        (:prefix "b"
+;;         :desc "Switch buffer" "b" #'counsel-switch-buffer)))
+#+end_src
+
+** Vertico
+#+begin_src emacs-lisp
+(map! ("C-s" #'consult-line)
+      :map vertico-map
+      ("M-o" #'embark-act))
 #+end_src
